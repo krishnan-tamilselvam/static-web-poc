@@ -1,0 +1,49 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/assets/*", "/*.{css,js,map,svg,png,ico,woff2}"]
+  },
+  "routes": [
+    {
+      "route": "/dashboard",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/dashboard/*",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/orders",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/orders/*",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/admin",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/admin/*",
+      "allowedRoles": ["authenticated"]
+    }
+  ],
+  "responseOverrides": {
+    "401": {
+      "redirect": "/.auth/login/aad?post_login_redirect_uri=.referrer",
+      "statusCode": 302
+    }
+  },
+  "auth": {
+    "identityProviders": {
+      "azureActiveDirectory": {
+        "registration": {
+          "openIdIssuer": "https://login.microsoftonline.com/<TENANT_ID>/v2.0",
+          "clientIdSettingName": "AZURE_CLIENT_ID",
+          "clientSecretSettingName": "AZURE_CLIENT_SECRET_APP_REGISTRATION"
+        }
+      }
+    }
+  }
+}
